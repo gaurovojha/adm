@@ -1,0 +1,85 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}}
+	data-ng-include="'./template/header.html'"
+	data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="edukone-home">
+	<section id="content">
+		<div class="container">
+			<div data-ng-controller="CarouselDemoCtrl">
+				<uib-carousel interval="myInterval"> <uib-slide
+					ng-repeat="w in slides" active="slide.active"> <img
+					ng-src="./media/carousel/{{w.img}}"> <!-- <div class="carousel-caption" data-ng-if="w.title.length > 0">
+				<h3>{{w.title}}</h3>
+				<p>{{w.text}}</p>
+			</div> --> </uib-slide> </uib-carousel>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body card-padding" data-ng-controller="admHomeCtrl">
+				<tabset justified="true"> <tab ng-repeat="tab in tabs"
+					heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+				<div class="card-body card-padding">
+					<form role="form">
+						<div class="row">
+							<!-- <div class="col-sm-8">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<div class="fg-line">
+										<input type="text" class="form-control" placeholder="tip: search by college/school"> 
+									</div>
+								</div>
+							</div> -->
+							<div class="col-sm-8">
+								<div class="form-group fg-line">
+									<label>College/School</label> <input type="text"
+										class="form-control"
+										placeholder="tip: search by college/school">
+
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group fg-line">
+									<label>City/State</label> <input type="text" ng-model="asyncSelected"
+											placeholder="type your location"
+											uib-typeahead="address for address in getLocation($viewValue)"
+											typeahead-loading="loadingLocations" class="form-control">
+
+								</div>
+								<!-- <div class="input-group">
+									<div class="fg-line">
+										<input type="text" ng-model="asyncSelected"
+											placeholder="type your location"
+											uib-typeahead="address for address in getLocation($viewValue)"
+											typeahead-loading="loadingLocations" class="form-control">
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-12">
+								<button type="submit" ng-click="searchFromHome()"
+									class="btn bgm-cyan waves-effect pull-right">
+									<i class="zmdi zmdi-search"></i>&nbsp; &nbsp; search
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				</tab> </tabset>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="card"></div>
+			<div class="card">
+
+				<a ui-sref="edukone.admSummary"> TO SUMMARY</a>
+			</div>
+		</div>
+	</section>
+</section>
+
+<footer id="footer"
+	data-ng-include="'./template/footer.html'"></footer>

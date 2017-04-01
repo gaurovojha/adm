@@ -1,0 +1,328 @@
+<div class="container c-alt" ng-controller="admSummaryCtrl"
+	data-ng-init="load()">
+	<div class="block-header">
+		<h2>
+			Search Summary <small>Results available for - criteria.</small>
+		</h2>
+
+		<ul class="actions">
+			<li><a href=""> <i class="zmdi zmdi-trending-up"></i>
+			</a></li>
+			<li><a href=""> <i class="zmdi zmdi-check-all"></i>
+			</a></li>
+			<li class="dropdown" uib-dropdown><a href="" uib-dropdown-toggle>
+					<i class="zmdi zmdi-more-vert"></i>
+			</a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li><a href="">Refresh</a></li>
+					<li><a href="">Manage Widgets</a></li>
+					<li><a href="">Widgets Settings</a></li>
+				</ul></li>
+		</ul>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+			<div class="card wall-posting">
+				<div class="card-body card-padding">
+					<!-- <div class="card-header">
+						<h3>Result Count</h3>
+					</div> -->
+				</div>
+				<ul class="list-unstyled clearfix wpb-actions">
+					<li class="wpba-attrs">
+						<ul class="list-unstyled list-inline m-l-0 m-t-5">
+							<li ng-if="smyOpts.smyGrid">View Grid</li>
+							<li ng-if="smyOpts.smyList">View List</li>
+							<li ng-if="smyOpts.smyLocation">View Location</li>
+
+						</ul>
+					</li>
+
+					<li class="wpba-attrs pull-right">
+						<ul class="list-unstyled list-inline m-l-0 m-t-5">
+							<li><a data-wpba="image" href=""
+								data-ng-class="{ 'active': smyOpts.smyGrid }"
+								data-ng-click="smyOpts.smyGrid = true; smyOpts.smyList = false; smyOpts.smyLocation = false"><i
+									class="zmdi zmdi-apps"></i></a></li>
+
+							<li><a data-wpba="video" href=""
+								data-ng-class="{ 'active': smyOpts.smyList }"
+								data-ng-click="smyOpts.smyGrid = false; smyOpts.smyList = true; smyOpts.smyLocation = false"><i
+									class="zmdi zmdi-format-list-bulleted zmdi-hc-fw"></i></a></li>
+
+							<li><a data-wpba="link" href=""
+								data-ng-class="{ 'active': smyOpts.Location }"
+								data-ng-click="smyOpts.smyGrid = false; smyOpts.smyList = false; smyOpts.smyLocation = true;"><i
+									class="zmdi zmdi-pin-drop zmdi-hc-fw"></i></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div ng-if="smyOpts.smyList">
+				<div class="card" ng-repeat="data in summaryData track by $index">
+					<div class="card-header">
+						<div class="media">
+							<div class="pull-left">
+								<img class="lv-img" src="./img/profile-pics/3.jpg" alt="">
+							</div>
+
+							<div class="media-body m-t-5">
+								<h2>
+									{{data.name}} <small>{{data.website}}</small>
+								</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body card-padding p-t-0">
+						<p>{{data.aboutUs}}</p>
+
+						<ul class="wall-attrs clearfix list-inline list-unstyled">
+							<li class="wa-stats"><span><i
+									class="zmdi zmdi-comments"></i>{{(data.comments).length}}</span> <span><i
+									class="zmdi zmdi-favorite"></i>{{data.likes}}</span></li>
+
+							<li class="wa-users"><a href=""><img
+									src="./img/profile-pics/3.jpg" alt=""></a></li>
+						</ul>
+					</div>
+
+					<div class="wall-comment-list">
+						<!-- Comment form -->
+						<div class="wcl-form">
+							<div class="wc-comment">
+								<div class="wcc-inner">COMMENTS</div>
+
+								<!-- 	<div class="m-t-15">
+								<button class="btn btn-sm btn-primary">Post</button>
+								<button class="btn btn-sm btn-link"
+									data-ng-click="mactrl.wallCommenting[2] = false">Cancel</button>
+							</div> -->
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="smyOpts.smyGrid">
+				<div class="card">
+					<div class="card-body card-padding">
+						<div class="contacts clearfix row" >
+							<div class="col-md-3 col-sm-4 col-xs-6"  ng-repeat="data in summaryData">
+								<div class="c-item">
+									<a href="" class="ci-avatar"> <img
+										src="./img/contacts/1.jpg" alt="">
+									</a>
+
+									<div class="c-info">
+										<strong>{{data.name}}</strong> <small>{{data.website}}</small>
+									</div>
+
+									<div class="c-footer">
+										<button class="waves-effect" ui-sref="edukone.schoolDetails">
+											<i class="zmdi zmdi-person-add"></i> More Details
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card" ng-if="smyOpts.smyLocation">
+				<div class="card m-b-0" id="messages-main">
+
+					<div class="ms-menu"
+						data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
+						<div class="ms-block">
+							<div class="ms-user">
+								<img src="" alt="">
+								<div>
+									View on Map <br />
+								</div>
+							</div>
+						</div>
+
+						<div class="listview lv-user m-t-20">
+
+							<div class="lv-item media"  ng-repeat="data in summaryData">
+								<div class="lv-avatar bgm-red pull-left">a</div>
+								<div class="media-body">
+									<div class="lv-title">{{data.name}}</div>
+									<div class="lv-small">{{data.website}}</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+					<div class="ms-body">
+						<div class="listview lv-message">
+							<div class="lv-header-alt clearfix">
+								<div id="ms-menu-trigger"
+									data-ng-class="{ 'open': mactrl.lvMenuStat }"
+									data-ng-click="mactrl.lvMenuStat = (mactrl.lvMenuStat===true ? false : true )">
+									<div class="line-wrap">
+										<div class="line top"></div>
+										<div class="line center"></div>
+										<div class="line bottom"></div>
+									</div>
+								</div>
+								<ul class="lv-actions actions">
+									<li><a href=""> <i class="zmdi zmdi-delete"></i>
+									</a></li>
+									<li><a href=""> <i class="zmdi zmdi-check"></i>
+									</a></li>
+									<li><a href=""> <i class="zmdi zmdi-time"></i>
+									</a></li>
+									<li class="dropdown" uib-dropdown><a href=""
+										uib-dropdown-toggle aria-expanded="true"> <i
+											class="zmdi zmdi-sort"></i>
+									</a>
+
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li><a href="">Latest</a></li>
+											<li><a href="">Oldest</a></li>
+										</ul></li>
+									<li class="dropdown" uib-dropdown><a href=""
+										uib-dropdown-toggle aria-expanded="true"> <i
+											class="zmdi zmdi-more-vert"></i>
+									</a>
+
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li><a href="">Refresh</a></li>
+											<li><a href="">Message Settings</a></li>
+										</ul></li>
+								</ul>
+							</div>
+
+							<div class="lv-body">
+								<div class="lv-item media">
+									<div class="media-body">
+										<a class="pmo-map" href=""> <img src="./img/demo/map.png"
+											alt="">
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="lv-footer ms-reply">
+								<textarea placeholder="What's on your mind..."></textarea>
+								<button>
+									<i class="zmdi zmdi-mail-send"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="load-more">
+				<a href="" ng-click="loadMoreSchools()"><i class="zmdi zmdi-refresh-alt"></i> Load More...</a>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+		<div class="col-md-4 hidden-sm">
+
+			<div class="card">
+				<div class="card-header ch-alt">
+					<h2>
+						Filter Results
+						<!--                  <small>Criteria filter</small> -->
+					</h2>
+				</div>
+
+				<div class="card-body card-padding">
+					<div class="form-group fg-float m-b-30">
+						<div class="fg-line">
+							<input type="text" class="form-control input-sm"> <label
+								class="fg-label">Affiliated Board</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body card-padding">
+					<div class="form-group fg-float m-b-30">
+						<div class="fg-line">
+							<input type="text" class="form-control input-sm"> <label
+								class="fg-label">State</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body card-padding">
+					<div class="form-group fg-float m-b-30">
+						<div class="fg-line">
+							<input type="text" class="form-control input-sm"> <label
+								class="fg-label">City</label>
+						</div>
+					</div>
+				</div>
+				<div class="card-header">
+					<h2>
+						Fees <small class="c-gray">Current value: {{
+							sliderRange.nouisliderFrom }} - {{ sliderRange.nouisliderTo }}</small>
+					</h2>
+				</div>
+
+				<div class="card-body card-padding">
+
+					<div slider class="input-slider-range" data-is-color="green"
+						ng-from="sliderRange.nouisliderFrom"
+						ng-to="sliderRange.nouisliderTo" start=0 end=100></div>
+				</div>
+
+			</div>
+
+
+
+
+			<!-- <div class="card">
+				<div class="card-body card-padding">
+					<button class="btn btn-info pull-right">Submit</button>
+					<button class="btn btn-info pull-right">Reset</button>
+				</div>
+			</div> -->
+
+
+
+
+
+		</div>
+	</div>
+</div>
