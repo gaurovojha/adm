@@ -164,6 +164,16 @@ angular.module('niographADMWebApp')
 
 			}
 
+			$scope.postComment = function(comment){
+				var summaryDataArr = $scope.summaryData;
+				$scope.summaryData[0].comments.push();
+				
+				_.each(summaryDataArr, function(summaryData) {
+    				if(summaryData.id==id){
+							summaryData.comments.push(comment);
+						}
+					});
 
+			}
 
 		} ]);

@@ -93,7 +93,10 @@
 						<!-- Comment form -->
 						<div class="wcl-form">
 							<div class="wc-comment">
-								<div class="wcc-inner">COMMENTS</div>
+								<div class="wcc-inner"> <input type="text" ng-model="userComment"
+											placeholder="COMMENTS">
+											<button type="button" class="btn btn-primary" ng-click='postComment()'>POST</button> </input>
+								</div>
 
 								<!-- 	<div class="m-t-15">
 								<button class="btn btn-sm btn-primary">Post</button>
