@@ -2,8 +2,8 @@
  *
  */
 angular.module('niographADMWebApp')
-	.controller('admHomeCtrl', [ '$timeout', '$state', '$stateParams', '$scope', '$log', '$http', 'growlService', 'appService',
-		function($timeout, $state, $stateParams, $scope, $log, $http, growlService, appService) {
+	.controller('admHomeCtrl', [ '$timeout', '$state', '$stateParams', '$scope', '$log','$window', '$http', 'growlService', 'appService',
+		function($timeout, $state, $stateParams, $scope, $log,$window, $http, growlService, appService) {
 
 			$scope.$state = $state;
 
@@ -30,7 +30,7 @@ angular.module('niographADMWebApp')
 			
 			 // Any function returning a promise object can be used to load values asynchronously
 	        $scope.getLocation = function(val) {
-	            return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+	            return $http.get('//maps.googleapis.com/maps/api/geocode/json?components=country:IN', {
 	                params: {
 	                    address: val,
 	                    sensor: false
@@ -62,10 +62,24 @@ angular.module('niographADMWebApp')
 		            }
 		        ];
 
+		        $scope.user={addCollege:"",addLocation:""};
+		       $scope.addCollegeAndLocation= function(user){
+				  $scope.addNCollege=user.addCollege;
+				  $scope.addNLocation=user.addLocation;
+				   
+				   $state.go("edukone.admSummary");
+				 
+			 }
+		       
 
+			 $scope.somePlaceholder='new index';
+
+
+/*
 			 $scope.searchFromHome= function(){
 				 
 				 $state.go("edukone.admSummary");
 			 }
+*/
 
 		} ]);

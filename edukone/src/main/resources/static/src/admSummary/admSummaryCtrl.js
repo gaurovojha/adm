@@ -2,8 +2,8 @@
  *
  */
 angular.module('niographADMWebApp')
-	.controller('admSummaryCtrl', [ '$timeout', '$state', '$stateParams', '$scope', '$log', '$http', 'growlService', 'appService',
-		function($timeout, $state, $stateParams, $scope, $log, $http, growlService, appService) {
+	.controller('admSummaryCtrl', [ '$timeout', '$state', '$stateParams', '$scope', '$log','$window','$http', 'growlService', 'appService',
+		function($timeout, $state, $stateParams, $scope, $log,$window, $http, growlService, appService) {
 
 			$scope.$state = $state;
 
@@ -27,15 +27,20 @@ angular.module('niographADMWebApp')
 				this.color4 = '#FFC107';
 			}
 
+			
+			
+
 			function summaryViews() {
 				this.smyGrid = false;
 				this.smyList = true;
 				this.smyLocation = false;
 			}
+			
 			$scope.load = function() {
 				$log.debug('@@@@@@@@@@ :::: admSummaryCtrl --- load :::: @@@@@@@@@@@----> ', $state);
 				$scope.sliderRange = new sliderRange();
 				$scope.sliderColor = new sliderColor();
+				
 				$scope.smyOpts = new summaryViews();
 				if ($state.current.name == 'edukone.admSummary') {
 					$scope.searchModel = {
@@ -53,12 +58,170 @@ angular.module('niographADMWebApp')
 						"zipCode" : "411013"
 					}
 				}
-				summaryData();
+				//summaryData();
 			};
 
 
 
-			var summaryData = function() {
+			
+
+			var startTime = new Date();
+			$scope.stopwatch= 0;
+
+			
+			$scope.schools=[
+			{
+				"name":'DPS PUBLIC SCHOOL',
+				"schoolLikes":0,
+				"postTimer":0,
+				"board":"CBSE",
+				"state":"Himanchal",
+				"city":"Hamirpur",
+				"fees":20,
+				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
+				"reviews":[{
+					"comment":'Cool',
+					"timer": 1,
+					"author":'Akash',
+					"likes": 0,
+					"dislikes":0
+				}]
+				
+				},
+				{
+				"name":'DAV PUBLIC SCHOOL',
+				"schoolLikes":0,
+				"postTimer":0,
+				"board":"IB",
+				"state":"uttrakhand",
+				"city":"haldwani",
+				"fees":30,
+				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
+				"reviews":[{
+					"comment":'Cool',
+					"timer": 1,
+					"author":'Akash',
+					"likes": 0,
+					"dislikes":0
+				}]
+				
+				}];
+
+
+			  $scope.moreEle=[{
+				"name":'MODERN PUBLIC SCHOOL',
+				"schoolLikes":0,
+				"postTimer":0,
+				"board":"CISCE",
+				"state":"Punjab",
+				"city":"Amritsar",
+				"fees":40,
+				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
+				"reviews":[{
+					"comment":'Cool',
+					"timer": 1,
+					"author":'Akash',
+					"likes": 0,
+					"dislikes":0
+				}]
+				
+			},
+			{
+				"name":'XYZ PUBLIC SCHOOL',
+				"schoolLikes":0,
+				"postTimer":0,
+				"board":"ICSE",
+				"state":"Haryana",
+				"city":"Gurgaon",
+				"fees":50,
+				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
+				"reviews":[{
+					"comment":'Cool',
+					"timer": 1,
+					"author":'Akash',
+					"likes": 0,
+					"dislikes":0
+				}]
+				
+			}];
+		
+
+
+			
+
+
+			$scope.somePlaceholder="write comment";
+
+			$scope.model = {};
+			$scope.model2 ={};
+			$scope.keyValue=0;
+			
+				
+			$scope.byFees=function(minValue,maxValue){
+				return function(school) {
+    					if(school.fees>=minValue && school.fees<=maxValue){
+    						return true;
+    					}
+  					};
+
+			};
+
+
+
+			$scope.addReview= function(outer){
+				$scope.stopwatch=Math.trunc((new Date()-startTime)/1000);
+				// $scope.datenow= Date.now();
+				//$scope.newDate=$scope.
+				//$window.alert($scope.datenow-$scope.startTime);
+				
+
+
+				 $scope.addNew=$scope.model.commentInput[outer];
+				 $scope.addNew2=$scope.model2.authorInput[outer];
+				 if($scope.addNew.match(/\S/g)){
+				 	 $scope.schools[outer].reviews.push({"comment":$scope.addNew,"timer":$scope.stopwatch,"author":$scope.addNew2,"likes":0,"dislikes":0});
+				
+				 }
+				 else{
+
+				 	swal("write comment!");
+				 }
+				
+				 
+				 $scope.model.commentInput[outer]=' ';
+				 $scope.model2.authorInput[outer]=' ';
+				 
+			};
+			
+			$scope.likesCounter=function(outer,index){
+				$scope.schools[outer].reviews[index].likes+=1;
+			}
+
+			$scope.dislikesCounter=function(outer,index){
+				$scope.schools[outer].reviews[index].dislikes+=1;
+			}
+
+			$scope.testLoad=function(){
+				
+				$scope.arrLength=$scope.moreEle.length;
+				if($scope.keyValue < $scope.arrLength){
+					$scope.schools.push($scope.moreEle[$scope.keyValue]);
+				}
+				
+				
+				$scope.keyValue+=1;
+			}
+
+
+
+			
+			
+
+
+
+
+
+		/*	var summaryData = function() {
 				$scope.summaryData = [
 					{
 						"id":1,
@@ -81,7 +244,7 @@ angular.module('niographADMWebApp')
 
 					}
 				]
-				/*appService.POSTMethod('/testinstitutes', $scope.searchModel).then(
+				appService.POSTMethod('/testinstitutes', $scope.searchModel).then(
 					function(dataResponse, status, headers, config) {
 						//success
 						$log.debug("********** testinstitutes ", dataResponse);
@@ -92,8 +255,15 @@ angular.module('niographADMWebApp')
 							$log.debug("**********", dataResponse);
 
 						});
-					})*/
-			}
+					})
+			}*/
+
+
+
+
+
+
+
 
 			var loadMoredata= {
 				"id":3,
@@ -105,10 +275,10 @@ angular.module('niographADMWebApp')
 				"comments":["comment1","comments2"]
 			}
 
-			var moreData = {
-					"id": 1,
-					"name": "Delhi Public School",
-					"aboutUs": "DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.",
+			/*var moreData = {
+					//"id": 1,
+					name: "Delhi Public School",
+					aboutUs: "DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.",
 					"address": "Vill. Mohammadwadi, Nyati County, Pune - 411060",
 					"contacts": 2026970412,
 					"establishedOn": "2008-01-02",
@@ -152,7 +322,7 @@ angular.module('niographADMWebApp')
 
 			$scope.loadMoreSchools  =function(){
 				$scope.summaryData.push(loadMoredata);
-				/*appService.POSTMethod('/testinstitutes', $scope.searchModel).then(
+				appService.POSTMethod('/testinstitutes', $scope.searchModel).then(
 						function(dataResponse, status, headers, config) {
 							//success
 							$log.debug("********** testinstitutes ", dataResponse);
@@ -160,9 +330,11 @@ angular.module('niographADMWebApp')
 								$scope.summaryData.push(response);
 							})
 							 $log.debug("********** summaryData",  $scope.summaryData);
-						})*/
+						})
 
-			}
+
+
+			}*/
 
 			$scope.postComment = function(comment){
 				var summaryDataArr = $scope.summaryData;
