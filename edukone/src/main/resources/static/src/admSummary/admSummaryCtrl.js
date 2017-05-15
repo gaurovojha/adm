@@ -78,6 +78,10 @@ angular.module('niographADMWebApp')
 				"state":"Himanchal",
 				"city":"Hamirpur",
 				"fees":20,
+				"id":0,
+				"likes":0,
+				"share":0,
+				"totalComments":1,
 				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
 				"reviews":[{
 					"comment":'Cool',
@@ -96,6 +100,10 @@ angular.module('niographADMWebApp')
 				"state":"uttrakhand",
 				"city":"haldwani",
 				"fees":30,
+				"id":1,
+				"likes":0,
+				"share":0,
+				"totalComments":1,
 				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
 				"reviews":[{
 					"comment":'Cool',
@@ -116,6 +124,10 @@ angular.module('niographADMWebApp')
 				"state":"Punjab",
 				"city":"Amritsar",
 				"fees":40,
+				"id":2,
+				"likes":0,
+				"share":0,
+				"totalComments":1,
 				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
 				"reviews":[{
 					"comment":'Cool',
@@ -134,6 +146,32 @@ angular.module('niographADMWebApp')
 				"state":"Haryana",
 				"city":"Gurgaon",
 				"fees":50,
+				"id":3,
+				"likes":0,
+				"share":0,
+				"totalComments":1,
+				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
+				"reviews":[{
+					"comment":'Cool',
+					"timer": 1,
+					"author":'Akash',
+					"likes": 0,
+					"dislikes":0
+				}]
+				
+			},
+			{
+				"name":'MODERN PUBLIC SCHOOL XYZ',
+				"schoolLikes":0,
+				"postTimer":0,
+				"board":"CBSE",
+				"state":"Uttar Pradesh",
+				"city":"Lucknow",
+				"fees":70,
+				"id":4,
+				"likes":0,
+				"share":0,
+				"totalComments":1,
 				"description":'DPS Pune is one of the most trusted name in quality education, which is recognized throughout the academic world for its progressive approach and commitment to excellence.',
 				"reviews":[{
 					"comment":'Cool',
@@ -167,20 +205,30 @@ angular.module('niographADMWebApp')
 			};
 
 
-
-			$scope.addReview= function(outer){
+			$scope.addReview= function(indexAfterFilter ,school){
 				$scope.stopwatch=Math.trunc((new Date()-startTime)/1000);
 				// $scope.datenow= Date.now();
 				//$scope.newDate=$scope.
 				//$window.alert($scope.datenow-$scope.startTime);
 				
 
+				 //$scope.addById=$scope.schools[outer].id;
+				/* for(var i=0;i < $scope.filteredItems.length;i++){
+				 	$window.alert($scope.filteredItems[i].name);
+				 }*/
 
-				 $scope.addNew=$scope.model.commentInput[outer];
-				 $scope.addNew2=$scope.model2.authorInput[outer];
-				 if($scope.addNew.match(/\S/g)){
-				 	 $scope.schools[outer].reviews.push({"comment":$scope.addNew,"timer":$scope.stopwatch,"author":$scope.addNew2,"likes":0,"dislikes":0});
-				
+				 //$window.alert(outer);
+
+				 $scope.addNew=school.reviews.comment;
+				 $scope.addNew2=school.reviews.author;
+				 
+
+				// $window.alert(outer);
+				 //$window.alert(indexAfterFilter);
+				if($scope.addNew.match(/\S/g)){
+				 	
+				 	 $scope.schools[indexAfterFilter].reviews.push({"comment":$scope.addNew,"author":$scope.addNew2,"timer":$scope.stopwatch,"likes":0,"dislikes":0});
+					 $scope.schools[indexAfterFilter].totalComments+=1;
 				 }
 				 else{
 
@@ -188,18 +236,28 @@ angular.module('niographADMWebApp')
 				 }
 				
 				 
-				 $scope.model.commentInput[outer]=' ';
-				 $scope.model2.authorInput[outer]=' ';
+				 school.reviews.comment=' ';
+				 school.reviews.author=' ';
 				 
 			};
 			
-			$scope.likesCounter=function(outer,index){
-				$scope.schools[outer].reviews[index].likes+=1;
+			$scope.likesCounter=function(indexAfterFilter,index){
+				$scope.schools[indexAfterFilter].reviews[index].likes+=1;
 			}
 
-			$scope.dislikesCounter=function(outer,index){
-				$scope.schools[outer].reviews[index].dislikes+=1;
+			$scope.dislikesCounter=function(indexAfterFilter,index){
+				$scope.schools[indexAfterFilter].reviews[index].dislikes+=1;
 			}
+
+			$scope.schoolLikesCounter=function(indexAfterFilter){
+				$scope.schools[indexAfterFilter].likes+=1;
+			}
+
+			$scope.schoolShareCounter=function(indexAfterFilter){
+				$scope.schools[indexAfterFilter].share+=1;
+			}
+
+
 
 			$scope.testLoad=function(){
 				

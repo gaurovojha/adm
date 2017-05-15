@@ -16158,3 +16158,14 @@ select.chosen {
 .mCSB_inside > .mCSB_container {
   margin-right: 0;
 }
+
+#panel_body{
+            display:block;
+            border: 2px;
+            padding:5px;
+            margin-top:5px;
+            
+            height:450px;
+            overflow:auto;
+
+}
